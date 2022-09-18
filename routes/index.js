@@ -32,4 +32,15 @@ router.get('/movie/:id', async (req, res, next) => {
   }
 });
 
+router.post('/search', async (req, res, next) => {
+  try {
+    const { cat, movieSearch } = req.body;
+    const response = await axios.get(`${apiBaseUrl}/search/${cat}?query=${encodeURI(movieSearch)}&api_key=${API_KEY}`);
+    cat === 'movie' && res.render('index', { results: response.data.results }); 
+    cat === 'person' && res.render('index', { results: response.data.results[0].known_for }); 
+  } catch (error) {
+    res.render('error', { message: 'Ocorreu um erro ao carregar a tela de detalhes', error }); 
+  }
+});
+
 module.exports = router;
