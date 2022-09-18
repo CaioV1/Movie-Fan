@@ -11,11 +11,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1></h1>
+				<h1>
+					Estreando no cinema
+				</h1>
 			</div>
 			<div class="col-sm-12">
-				
-				
+				<% results.forEach((movie) => { %>
+					<div class="col-md-3 col-sm-4 poster">
+						<img crossorigin="anonymous" src="<%= imageBaseUrl + movie.poster_path %>" />
+					</div>
+				<% }) %>
 			</div>
 		</div>
 	</div>
