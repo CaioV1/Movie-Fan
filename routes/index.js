@@ -22,4 +22,14 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/movie/:id', async (req, res, next) => {
+  try {
+    const movieId = req.params.id;
+    const response = await axios.get(`${apiBaseUrl}/movie/${movieId}?api_key=${API_KEY}`);
+    res.render('single-movie', { movie: response.data }); 
+  } catch (error) {
+    res.render('error', { message: 'Ocorreu um erro ao carregar a tela de detalhes', error }); 
+  }
+});
+
 module.exports = router;

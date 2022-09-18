@@ -25,6 +25,7 @@ app.use(
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       'img-src': ['*'],
+      'script-src': ['*']
     },
   })
 );

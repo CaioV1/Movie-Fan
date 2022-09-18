@@ -1,24 +1,23 @@
-<% include head %>
+<%- include ('head') %>
 </head>
 <body>
-	<% include navbar %>
+	<%- include ('navbar') %>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<h1 class="single-movie-title">
-
+					<%= movie.original_title %>
 				</h1>
-				
 				<h3 class="single-movie-title">
-
+					<%= movie.tagline %>
 				</h3>
-				
-
-				<img src="" />
-				
-				<p class="overview-header">Movie Synopsis: <span class="single-movie-overview">
-					
-				</span></p>
+				<img crossorigin="anonymous" src="<%= imageBaseUrl + movie.poster_path %>" />	
+				<p class="overview-header">
+					Movie Synopsis: 
+					<span class="single-movie-overview">
+						<%= movie.overview %>
+					</span>
+				</p>
 			</div>
 		</div>
 	</div>
@@ -39,8 +38,19 @@
         <h4 class="modal-title" id="myModalLabel">Movie Information</h4>
       </div>
       <div class="modal-body">
-
-
+				<p>
+					<a href="https://www.imdb.com/title/<%= movie.imdb_id %>" target="_blank">
+						IMDB Link
+					</a>
+				</p>
+				<p><%= movie.budget %></p>
+				<p><%= movie.revenue %></p>
+				<p><%= movie.release_date %></p>
+				<ul>
+					<% movie.production_companies.forEach((company) => { %>
+						<li><%= company.name %></li>
+					<% }) %>
+				</ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -17,9 +17,11 @@
 			</div>
 			<div class="col-sm-12">
 				<% results.forEach((movie) => { %>
-					<div class="col-md-3 col-sm-4 poster">
-						<img crossorigin="anonymous" src="<%= imageBaseUrl + movie.poster_path %>" />
-					</div>
+					<a href="/movie/<%= movie.id %>">
+						<div class="col-md-3 col-sm-4 poster">
+							<img crossorigin="anonymous" src="<%= imageBaseUrl + movie.poster_path %>" />
+						</div>
+					</a>
 				<% }) %>
 			</div>
 		</div>
