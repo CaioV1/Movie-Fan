@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const passport = require('passport');
 const router = express.Router();
 
 const API_KEY = '1fb720b97cc13e580c2c35e1138f90f8';
@@ -21,6 +22,8 @@ router.get('/', async (req, res, next) => {
     res.render('error', { message: 'Ocorreu um erro ao carregar a tela principal', error }); 
   }
 });
+
+router.get('/login', passport.authenticate('github'));
 
 router.get('/movie/:id', async (req, res, next) => {
   try {

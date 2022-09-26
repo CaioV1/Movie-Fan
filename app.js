@@ -1,13 +1,17 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const helmet = require('helmet');
+const passport = require('passport');
+const GithubStrategy = require('passport-github').Strategy;
 
-var indexRouter = require('./routes/index');
+const passportConfig = require('./config.js');
 
-var app = express();
+const indexRouter = require('./routes/index');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +33,10 @@ app.use(
     },
   })
 );
+
+passport.use(new GithubStrategy(passportConfig, (accessToken, refreshToken, profile, cb) => {
+  console.log(profile);
+}));
 
 app.use('/', indexRouter);
 
