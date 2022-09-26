@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const passport = require('passport');
+const session = require('express-session');
 const GithubStrategy = require('passport-github').Strategy;
 
 const passportConfig = require('./config.js');
@@ -34,9 +35,18 @@ app.use(
   })
 );
 
-passport.use(new GithubStrategy(passportConfig, (accessToken, refreshToken, profile, cb) => {
-  console.log(profile);
-}));
+app.use(session({
+  secret: 'Movie App to Learn Passport',
+  resave: false,
+  saveUninitialized: true
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new GithubStrategy(passportConfig, (accessToken, refreshToken, profile, cb) => cb(null, profile)));
+passport.serializeUser((user, done) => { done(null, user); });
+passport.deserializeUser((user, done) => { done(null, user); });
 
 app.use('/', indexRouter);
 

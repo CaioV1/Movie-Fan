@@ -25,6 +25,15 @@ router.get('/', async (req, res, next) => {
 
 router.get('/login', passport.authenticate('github'));
 
+router.get('/auth', passport.authenticate('github', {
+  successRedirect: '/',
+  failureRedirect: '/loginFailed'
+}));
+
+router.get('/favorites', (req, res, next) => { 
+  res.json(req.user)
+});
+
 router.get('/movie/:id', async (req, res, next) => {
   try {
     const movieId = req.params.id;
